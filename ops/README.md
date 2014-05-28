@@ -1,4 +1,4 @@
-samples
+samples/ops
 ==========
 
 This repository contains scripts and tools which can be used to manage and/or work with data stored in a [LabKey Server](https://www.labkey.org/). 
