@@ -28,6 +28,20 @@ The scripts and tools that you find here are either in development or have not y
     * See [blog entry](http://fourproc.com/2013/05/02/using-labkey-s-sample-backup-script-to-backup-your-postgresql-database.html) for more information on using the script.
 
 
+## Configuration File Examples
+_Located in the [/config-examples](/LabKey/samples/tree/master/config-examples) folder_
+
+This folder contains examples of configuration files for Tomcat, PostgreSQL and LabKey Server that can be customized or used in your installation of LabKey Server.
+
+* **server.xml**: Example `server.xml` configuration file for Tomcat7. This configuration file 
+    * Enables the HTTP connector to listen on port `TCP/80`
+    * Enables [access logging](http://tomcat.apache.org/tomcat-7.0-doc/config/valve.html#Access_Logging) using a custom pattern that is described at [http://www.fourproc.com/2010/06/02/improved-access-logging-format-for-labkey-server-.html](http://www.fourproc.com/2010/06/02/improved-access-logging-format-for-labkey-server-.html).
+* **server-SSL.xml**: Example `server.xml` configuration file for Tomcat7. This configuration file 
+    * Enables the HTTP connector to listen on port `TCP/80`
+    * Enables the HTTPS connector to listen on port `TCP/443`
+    * HTTPS connector configuration protects against [BEAST](http://blog.zoller.lu/2011/09/beast-summary-tls-cbc-countermeasures.html) and [POODLE](https://www.imperialviolet.org/2014/10/14/poodle.html) attacks.
+    * Enables [access logging](http://tomcat.apache.org/tomcat-7.0-doc/config/valve.html#Access_Logging) using a custom pattern that is described at [http://www.fourproc.com/2010/06/02/improved-access-logging-format-for-labkey-server-.html](http://www.fourproc.com/2010/06/02/improved-access-logging-format-for-labkey-server-.html).
+
 
 ## Support 
 

@@ -24,7 +24,7 @@ The [LabKey Server Python API](https://www.labkey.org/wiki/home/Documentation/pa
 
 
 ### Installation and Upgrade
-_Located in the [/python](/LabKey/samples/tree/master/ops) folder_
+_Located in the [/ops](/LabKey/samples/tree/master/ops) folder_
 
 * **install-windows-manual.bat**: Use script to install the LabKey Server binaries on Windows. This should only be used if you are performing at [manual installation](https://www.labkey.org/wiki/home/Documentation/page.view?name=manualInstall).
     *  This should only be used if you are performing at [manual installation](https://www.labkey.org/wiki/home/Documentation/page.view?name=manualInstall) on a Windows server.
