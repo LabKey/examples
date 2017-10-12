@@ -10,7 +10,7 @@
 #   * PostgreSQL: 9.5.5
 #   * Tomcat: 8.0.38
 #   * Java: 1.8u112
-#   * LabKey Server: LabKey16.3-48008.30-community-bin
+#   * LabKey Server: Labkey17.2-52553-community-bin
 #
 #
 # Storage:
@@ -42,8 +42,8 @@ MAINTAINER bconn@labkey.com
 
 ENV JAVA_VERSION=8 \
     JAVA_UPDATE=112 \
-    LABKEY_VERSION=16.3 \
-    LABKEY_DIST=16.3-48008.30-community \
+    LABKEY_VERSION=17.2 \
+    LABKEY_DIST=17.2-52553-community \
     PG_MAJOR=9.5 \
     PG_VERSION=9.5.4 \
     PG_HOST=localhost \
@@ -130,16 +130,16 @@ ADD ["./labkey/start_labkey.sh","./tomcat/start_tomcat.sh","./labkey/check_labke
 RUN chmod +x /labkey/bin/* && \
     mkdir -p /labkey/labkey && \
     cd /labkey/src && \
-    wget --no-verbose http://labkey.s3.amazonaws.com/downloads/general/r/$LABKEY_VERSION/LabKey$LABKEY_DIST-bin.tar.gz && \
-    tar xzf /labkey/src/LabKey$LABKEY_DIST-bin.tar.gz && \
-    cp -R LabKey$LABKEY_DIST-bin/modules /labkey/labkey && \
-    cp -R LabKey$LABKEY_DIST-bin/labkeywebapp /labkey/labkey && \
-    cp -R LabKey$LABKEY_DIST-bin/pipeline-lib /labkey/labkey && \
-    cp -f LabKey$LABKEY_DIST-bin/tomcat-lib/*.jar /labkey/apps/tomcat/lib/ && \
+    wget --no-verbose http://labkey.s3.amazonaws.com/downloads/general/r/$LABKEY_VERSION/Labkey$LABKEY_DIST-bin.tar.gz && \
+    tar xzf /labkey/src/Labkey$LABKEY_DIST-bin.tar.gz && \
+    cp -R Labkey$LABKEY_DIST-bin/modules /labkey/labkey && \
+    cp -R Labkey$LABKEY_DIST-bin/labkeywebapp /labkey/labkey && \
+    cp -R Labkey$LABKEY_DIST-bin/pipeline-lib /labkey/labkey && \
+    cp -f Labkey$LABKEY_DIST-bin/tomcat-lib/*.jar /labkey/apps/tomcat/lib/ && \
     mkdir /labkey/labkey/files && \
     chown -R tomcat.tomcat /labkey/labkey && \
-    rm -rf LabKey$LABKEY_DIST-bin && \
-    rm LabKey$LABKEY_DIST-bin.tar.gz
+    rm -rf Labley$LABKEY_DIST-bin && \
+    rm Labkey$LABKEY_DIST-bin.tar.gz
 
 
 # Expose LabKey Server web application
@@ -159,12 +159,3 @@ HEALTHCHECK --interval=60s --timeout=10s --retries=5 \
 
 ENTRYPOINT ["/labkey/bin/start_labkey.sh"]
 CMD ["/labkey/bin/check_labkey.sh"]
-
-
-
-
-
-
-
-
-
