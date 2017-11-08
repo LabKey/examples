@@ -1,0 +1,2 @@
+sudo su vagrant -c "/vagrant/user_setup"
+. /vagrant/cleanup

@@ -1,0 +1,2 @@
+. /vagrant/root_setup
+. /vagrant/cleanup

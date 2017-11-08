@@ -1,0 +1,75 @@
+#!/bin/bash
+
+export LABKEYDIR=~/labkey
+export SVNBRANCH=trunk
+export GITBRANCH=develop
+export USERGROUP=$(id -un):$(id -gn)
+. /vagrant/setenv
+
+# user and credential set up
+
+echo "https://$GITUSER:$GITPASSWORD@github.com" > ~/.git-credentials
+chmod 0600 ~/.git-credentials
+git config --global credential.helper store
+
+
+# jetbrains idea
+
+mkdir -p ~/bin
+printf '#!/bin/bash\n/snap/intellij-idea-ultimate/3/bin/idea.sh $* &\n' > ~/bin/idea
+chmod +x ~/bin/idea
+mkdir -p ~/.local/share/applications/
+if [ -f ~/.gnome/apps/jetbrains-idea.desktop ]; then cp ~/.gnome/apps/jetbrains-idea.desktop ~/.local/share/applications/; fi
+
+
+# enlist 
+
+mkdir -p $LABKEYDIR
+sudo chown $USERGROUP $LABKEYDIR
+
+if [ ! -d "$LABKEYDIR/$SVNBRANCH" ]; then
+  mkdir -p $LABKEYDIR/$SVNBRANCH
+  cd $LABKEYDIR/$SVNBRANCH
+  echo 'PATH_add $(pwd)' >> .envrc
+  echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> .envrc
+  echo 'export CATALINA_HOME=$(pwd)/apache-tomcat-7.0.69' >> .envrc
+  direnv allow .
+
+  #git clone https://www.github.com/LabKey/enlist $LABKEYDIR/enlist
+  #echo $LABKEYDIR/$SVNBRANCH/.mrconfig >> ~/.mrtrust
+  #/labkey/enlist/bin/enlistconfig $LABKEYDIR/enlist/$SVNBRANCH.config
+  #cp ../enlist/$SVNBRANCH.config .mrconfig
+  if [ "$SVNBRANCH" = "trunk" ]; then
+    svn checkout --username $SVNUSER --password $SVNPASSWORD https://hedgehog.fhcrc.org/tor/stedi/$SVNBRANCH $LABKEYDIR/$SVNBRANCH
+  else
+    svn checkout --username $SVNUSER --password $SVNPASSWORD https://hedgehog.fhcrc.org/tor/stedi/branches/$SVNBRANCH $LABKEYDIR/$SVNBRANCH
+  fi
+else
+  cd $LABKEYDIR/$SVNBRANCH
+  svn update --username $SVNUSER --password $SVNPASSWORD
+  #mr update
+fi
+
+if [ ! -d  "apache-tomcat-7.0.69" ]; then
+  unzip server/installer/3rdparty/apache-tomcat-7.0.69.zip
+  echo "systemProp.tomcat.home=$LABKEYDIR/$SVNBRANCH/apache-tomcat-7.0.69" >> $LABKEYDIR/$SVNBRANCH/gradle.properties
+fi
+
+cd $LABKEYDIR/$SVNBRANCH
+./gradlew init
+
+
+# database
+
+sudo su postgres -c "psql -c \"ALTER USER postgres PASSWORD 'sasa'\""
+
+
+# user environment
+
+cd ~
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> ~/.envrc
+direnv allow .
+echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+mkdir -p ~/.local/share/applications/
+printf "[Desktop Entry]\nVersion=1.0\nType=Application\nName=IntelliJ IDEA\nIcon=/snap/intellij-idea-ultimate/3/bin/idea.png\nExec="/snap/intellij-idea-ultimate/3/bin/idea.sh" %f\nComment=The Drive to Develop\nCategories=Development;IDE;\nTerminal=false\nStartupWMClass=jetbrains-idea\n" >  ~/.local/share/applications/jetbrains-idea.desktop
+dbus-launch gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.gedit.desktop', 'gnome-calculator.desktop', 'jetbrains-idea.desktop']"
