@@ -56,7 +56,7 @@ if [ ! -d  "apache-tomcat-7.0.69" ]; then
 fi
 
 cd $LABKEYDIR/$SVNBRANCH
-./gradlew pickPg
+./gradlew pickPg --refresh-dependencies
 
 # database
 
