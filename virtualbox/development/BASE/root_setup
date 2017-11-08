@@ -8,7 +8,7 @@ fi
 # install 'system' software
 
 apt-get update --yes
-apt-get install --yes apt-transport-https ca-certificates curl software-properties-common
+apt-get install --yes --quiet apt-transport-https ca-certificates curl software-properties-common
 
 # docker repository
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -27,6 +27,6 @@ apt-get upgrade --yes
 # TODO docker-ce did not work???
 # https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
 # apt-get remove --yes docker docker-engine docker.io
-apt-get install --yes direnv docker.io git graphviz myrepos npm oracle-java8-installer pandoc postgresql r-base-core subversion tree
+apt-get install --yes --quiet direnv docker.io git graphviz myrepos npm oracle-java8-installer pandoc postgresql r-base-core subversion tree
 #VBoxClient-all
 snap install intellij-idea-ultimate --classic
