@@ -58,9 +58,17 @@ fi
 cd $LABKEYDIR/$SVNBRANCH
 ./gradlew pickPg --refresh-dependencies
 
+
 # database
 
 sudo su postgres -c "psql -c \"ALTER USER postgres PASSWORD 'sasa'\""
+
+
+# intellij
+
+# TODO I think this file gets overwritten at first idea startup
+mkdir -p /home/vagrant/.IntelliJIdea2017.2/config/options
+cp /vagrant/path.macros.xml /home/vagrant/.IntelliJIdea2017.2/config/options/
 
 
 # user environment
@@ -72,3 +80,7 @@ echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
 mkdir -p ~/.local/share/applications/
 printf "[Desktop Entry]\nVersion=1.0\nType=Application\nName=IntelliJ IDEA\nIcon=/snap/intellij-idea-ultimate/3/bin/idea.png\nExec="/snap/intellij-idea-ultimate/3/bin/idea.sh" %f\nComment=The Drive to Develop\nCategories=Development;IDE;\nTerminal=false\nStartupWMClass=jetbrains-idea\n" >  ~/.local/share/applications/jetbrains-idea.desktop
 dbus-launch gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.gedit.desktop', 'gnome-calculator.desktop', 'jetbrains-idea.desktop']"
+
+echo "alias g='gradlew'" >> ~/.bash_aliases
+
+pandoc /vagrant/README.md > ~/Desktop/README.html

@@ -1,0 +1,4 @@
+setenv
+**/*.box
+**/.vagrant
+output

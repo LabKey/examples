@@ -1,0 +1,5 @@
+<application>
+  <component name="PathMacrosImpl">
+    <macro name="CATALINA_HOME" value="/home/vagrant/labkey/trunk/apache-tomcat-7.0.69" />
+  </component>
+</application>

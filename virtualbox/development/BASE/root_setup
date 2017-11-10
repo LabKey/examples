@@ -30,3 +30,6 @@ apt-get upgrade --yes
 apt-get install --yes --quiet direnv docker.io git graphviz myrepos npm oracle-java8-installer pandoc postgresql r-base-core subversion tree
 #VBoxClient-all
 snap install intellij-idea-ultimate --classic
+
+echo "fs.inotify.max_user_watches = 524288" > /etc/sysctl.d/idea.conf
+sysctl -p --system

@@ -3,3 +3,6 @@ rm /home/vagrant/.ssh/authorized_keys
 #usermod -p $(perl -e 'print crypt("changeme", "MB")') vagrant
 #groupadd developer
 #usermod -d /home/developer -m -g developer -l developer vagrant
+
+
+sudo cp ~/.IntelliJIdea2017.2/config/options/path.macros.xml /vagrant/
