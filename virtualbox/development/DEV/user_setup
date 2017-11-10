@@ -56,7 +56,9 @@ if [ ! -d  "apache-tomcat-7.0.69" ]; then
 fi
 
 cd $LABKEYDIR/$SVNBRANCH
-./gradlew pickPg --refresh-dependencies
+# this has side-effect of downloading dependencies (there's probably a more direct way)
+./gradlew tasks
+./gradlew pickPg
 
 
 # database
@@ -83,4 +85,7 @@ dbus-launch gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.de
 
 echo "alias g='gradlew'" >> ~/.bash_aliases
 
-pandoc /vagrant/README.md > ~/Desktop/README.html
+mkdir -p /home/vagrant/Desktop
+pandoc /vagrant/README.md > /home/vagrant/Desktop/README.html
+
+sync
