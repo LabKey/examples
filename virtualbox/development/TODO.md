@@ -8,3 +8,4 @@ TODO
 * fix semi-colons in paths in debug configurations
 * preconfigure intellij jdk
 * release 17.3 build (or just enlist in trunk and release 17.3?)
+* install tomcat 8.5

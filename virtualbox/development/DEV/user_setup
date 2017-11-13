@@ -50,6 +50,7 @@ else
   #mr update
 fi
 
+# TODO download tomcat 8.5 or update tomcat in server/installer/3rdparty
 if [ ! -d  "apache-tomcat-7.0.69" ]; then
   unzip server/installer/3rdparty/apache-tomcat-7.0.69.zip
   echo "systemProp.tomcat.home=$LABKEYDIR/$SVNBRANCH/apache-tomcat-7.0.69" >> $LABKEYDIR/$SVNBRANCH/gradle.properties
