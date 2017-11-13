@@ -1,3 +1,5 @@
+cp setenv.trunk setenv
+
 vagrant destroy
 vagrant up
 vagrant package --output development.box

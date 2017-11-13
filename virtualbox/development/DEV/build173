@@ -1,0 +1,6 @@
+cp setenv.173 setenv
+
+vagrant destroy
+vagrant up
+vagrant package --output development173.box
+vagrant box add --force labkey/development/173 development173.box

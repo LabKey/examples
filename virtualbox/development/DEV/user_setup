@@ -1,10 +1,17 @@
 #!/bin/bash
 
-export LABKEYDIR=~/labkey
+export LABKEYDIR=/home/vagrant/labkey
 export SVNBRANCH=trunk
 export GITBRANCH=develop
+export SVNUSER=cpas
+export SVNPASSWORD=cpas
 export USERGROUP=$(id -un):$(id -gn)
-. /vagrant/setenv
+export TOMCAT=apache-tomcat-7.0.69
+
+if [ -f /vagrant/setenv ]; then
+  . /vagrant/setenv
+fi
+
 
 # user and credential set up
 
@@ -32,7 +39,7 @@ if [ ! -d "$LABKEYDIR/$SVNBRANCH" ]; then
   cd $LABKEYDIR/$SVNBRANCH
   echo 'PATH_add $(pwd)' >> .envrc
   echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> .envrc
-  echo 'export CATALINA_HOME=$(pwd)/apache-tomcat-7.0.69' >> .envrc
+  echo "export CATALINA_HOME=$(pwd)/$TOMCAT" >> .envrc
   direnv allow .
 
   #git clone https://www.github.com/LabKey/enlist $LABKEYDIR/enlist
@@ -44,23 +51,32 @@ if [ ! -d "$LABKEYDIR/$SVNBRANCH" ]; then
   else
     svn checkout --username $SVNUSER --password $SVNPASSWORD https://hedgehog.fhcrc.org/tor/stedi/branches/$SVNBRANCH $LABKEYDIR/$SVNBRANCH
   fi
+  
+  # fix up classpaths in run configurations (consider: complicated sed command?)
+  cp /vagrant/runConfigurations/* $LABKEYDIR/$SVNBRANCH/.idea/runConfigurations
 else
   cd $LABKEYDIR/$SVNBRANCH
   svn update --username $SVNUSER --password $SVNPASSWORD
   #mr update
 fi
+cd $LABKEYDIR/$SVNBRANCH
+
 
 # TODO download tomcat 8.5 or update tomcat in server/installer/3rdparty
-if [ ! -d  "apache-tomcat-7.0.69" ]; then
-  unzip server/installer/3rdparty/apache-tomcat-7.0.69.zip
-  echo "systemProp.tomcat.home=$LABKEYDIR/$SVNBRANCH/apache-tomcat-7.0.69" >> $LABKEYDIR/$SVNBRANCH/gradle.properties
+if [ ! -d  "$LABKEYDIR/$SVNBRANCH/$TOMCAT" ]; then
+  unzip server/installer/3rdparty/$TOMCAT.zip
+  echo "systemProp.tomcat.home=$LABKEYDIR/$SVNBRANCH/$TOMCAT" >> gradle.properties
 fi
 
 cd $LABKEYDIR/$SVNBRANCH
+echo "org.gradle.parallel=true" >> gradle.properties
 # this has side-effect of downloading dependencies (there's probably a more direct way)
 ./gradlew tasks
 ./gradlew pickPg
 
+echo ./gradlew :server:test:uiTest -Psuite=DRT >> drt
+echo ./gradlew :server:test:uiTest -Psuite=BVT >> bvt
+chmod +x drt bvt
 
 # database
 
@@ -69,14 +85,18 @@ sudo su postgres -c "psql -c \"ALTER USER postgres PASSWORD 'sasa'\""
 
 # intellij
 
-# TODO I think this file gets overwritten at first idea startup
 mkdir -p /home/vagrant/.IntelliJIdea2017.2/config/options
-cp /vagrant/path.macros.xml /home/vagrant/.IntelliJIdea2017.2/config/options/
-
+printf "<application>\n<component name=\"PathMacrosImpl\">\n<macro name=\"CATALINA_HOME\" value=\"$LABKEYDIR/$SVNBRANCH/$TOMCAT\" />\n</component>\n</application>" > /home/vagrant/.IntelliJIdea2017.2/config/options/path.macros.xml
+cp /vagrant/jdk.table.xml ~/.IntelliJIdea2017.2/config/options
 
 # user environment
 
-cd ~
+cd /home/vagrant
+
+mkdir -p .mozilla/firefox/vagrant.default
+cp /vagrant/mozilla/firefox/profiles.ini .mozilla/firefox/profiles.ini
+cp /vagrant/mozilla/firefox/vagrant.default/prefs.js .mozilla/firefox/vagrant.default/prefs.js
+
 echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> ~/.envrc
 direnv allow .
 echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
