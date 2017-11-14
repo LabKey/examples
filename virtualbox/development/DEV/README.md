@@ -36,12 +36,6 @@ I'm assuming you have a trunk enlistment, if you have a release enlistment the d
 
 Open an existing project ".../labkey/trunk"
 
-Open your project settings and add a new JDK, the suggested default (oracle 1.8) will work.
-
-Open the "Run/Edit Configurations" menu item.  Select "LabKey Dev".  Under "VM Options" make sure the class path uses colons ':' rather than semi-colons ';'.
-
-_BUG fix the classpath so that it does not have semi-colons_
-
 Open the menu "View Tool Windows/Gradle".  Enable auto-import for gradle.
 
 **WARNING: It can take a long time to import the gradle project and index the project files the first time.**  
@@ -51,7 +45,5 @@ Run gradle deployApp task which can be found in the tree at :server/Tasks/deploy
 #### Run LabKey Server from Intellij IDEA
 Wait until your command-line build (or intellij/gradle build) completes.  Then click on the "LabKey DEV" in the configuration selector
 in the toolbar, and click the debug icon.  The server should start up listening on http://localhost:8080/labkey/
-
-If you see "Error: Could not find or load main class org.apache.catalina.startup.Bootstrap" in the Debugger Console, you did not fix up your class path (see above).
 
 Run firefox to find out if it worked!
