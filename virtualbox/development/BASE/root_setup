@@ -31,7 +31,7 @@ apt-get upgrade --yes
 # TODO docker-ce did not work???
 # https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
 # apt-get remove --yes docker docker-engine docker.io
-apt-get install --yes --quiet google-chrome-stable direnv docker.io git graphviz myrepos npm oracle-java8-installer pandoc postgresql r-base-core subversion tree
+apt-get install --yes --quiet google-chrome-stable direnv docker.io git graphviz libgconf-2-4 myrepos npm oracle-java8-installer pandoc postgresql r-base-core subversion tree
 #VBoxClient-all
 snap install intellij-idea-ultimate --classic
 

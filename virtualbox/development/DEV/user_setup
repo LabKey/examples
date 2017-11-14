@@ -89,17 +89,35 @@ mkdir -p /home/vagrant/.IntelliJIdea2017.2/config/options
 printf "<application>\n<component name=\"PathMacrosImpl\">\n<macro name=\"CATALINA_HOME\" value=\"$LABKEYDIR/$SVNBRANCH/$TOMCAT\" />\n</component>\n</application>" > /home/vagrant/.IntelliJIdea2017.2/config/options/path.macros.xml
 cp /vagrant/jdk.table.xml ~/.IntelliJIdea2017.2/config/options
 
+
+# tests require firefox 45 (I know, this is bad)
+cd ~
+sudo apt remove --yes firefox
+wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-x86_64/en-US/firefox-45.0.tar.bz2
+tar xjf firefox-45.0.tar.bz2
+mv firefox ~/Desktop/firefox45
+# set up test to use firefox45
+cp /vagrant/test.properties $LABKEYDIR/$SVNBRANCH/server/test
+
 # user environment
 
 cd /home/vagrant
 
+# set firefox home directory
 mkdir -p .mozilla/firefox/vagrant.default
 cp /vagrant/mozilla/firefox/profiles.ini .mozilla/firefox/profiles.ini
 cp /vagrant/mozilla/firefox/vagrant.default/prefs.js .mozilla/firefox/vagrant.default/prefs.js
+# set idea to start on login
+if [ -f "/home/vagrant/.local/share/applications/jetbrains-idea.desktop" ]; then
+  cp ~/.local/share/applications/jetbrains-idea.desktop ~/.config/autostart/
+fi
 
+# set JAVA_HOME 
 echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> ~/.envrc
 direnv allow .
+# enable direnv program
 echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+# set favorites (gnome panel shortcuts)
 mkdir -p ~/.local/share/applications/
 printf "[Desktop Entry]\nVersion=1.0\nType=Application\nName=IntelliJ IDEA\nIcon=/snap/intellij-idea-ultimate/3/bin/idea.png\nExec="/snap/intellij-idea-ultimate/3/bin/idea.sh" %f\nComment=The Drive to Develop\nCategories=Development;IDE;\nTerminal=false\nStartupWMClass=jetbrains-idea\n" >  ~/.local/share/applications/jetbrains-idea.desktop
 dbus-launch gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.gedit.desktop', 'gnome-calculator.desktop', 'jetbrains-idea.desktop']"
