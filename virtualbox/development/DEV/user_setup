@@ -6,7 +6,6 @@ export GITBRANCH=develop
 export SVNUSER=cpas
 export SVNPASSWORD=cpas
 export USERGROUP=$(id -un):$(id -gn)
-export TOMCAT=apache-tomcat-7.0.69
 
 if [ -f /vagrant/setenv ]; then
   . /vagrant/setenv
@@ -59,12 +58,14 @@ else
   svn update --username $SVNUSER --password $SVNPASSWORD
   #mr update
 fi
+cd $LABKEYDIR/$SVNBRANCH/server/installer/3rdparty
+export TOMCAT_ZIP=$(ls apache-tomcat*.zip)
+export TOMCAT=$(basename $TOMCAT_ZIP .zip)
 cd $LABKEYDIR/$SVNBRANCH
-
 
 # TODO download tomcat 8.5 or update tomcat in server/installer/3rdparty
 if [ ! -d  "$LABKEYDIR/$SVNBRANCH/$TOMCAT" ]; then
-  unzip server/installer/3rdparty/$TOMCAT.zip
+  unzip server/installer/3rdparty/$TOMCAT_ZIP
   echo "systemProp.tomcat.home=$LABKEYDIR/$SVNBRANCH/$TOMCAT" >> gradle.properties
 fi
 
@@ -92,7 +93,6 @@ cp /vagrant/jdk.table.xml ~/.IntelliJIdea2017.2/config/options
 
 # tests require firefox 45 (I know, this is bad)
 cd ~
-sudo apt remove --yes firefox
 wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-x86_64/en-US/firefox-45.0.tar.bz2
 tar xjf firefox-45.0.tar.bz2
 mv firefox ~/Desktop/firefox45

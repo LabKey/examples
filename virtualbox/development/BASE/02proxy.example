@@ -1,0 +1,2 @@
+# apt-cache-ng server must proxy ssl requests
+Acquire::http::proxy "http://10.10.10.10:3142";
