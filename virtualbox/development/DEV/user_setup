@@ -22,7 +22,7 @@ git config --global credential.helper store
 # jetbrains idea
 
 mkdir -p ~/bin
-printf '#!/bin/bash\n/snap/intellij-idea-ultimate/3/bin/idea.sh $* &\n' > ~/bin/idea
+printf '#!/bin/bash\n/snap/intellij-idea-ultimate/current/bin/idea.sh $* &\n' > ~/bin/idea
 chmod +x ~/bin/idea
 mkdir -p ~/.local/share/applications/
 if [ -f ~/.gnome/apps/jetbrains-idea.desktop ]; then cp ~/.gnome/apps/jetbrains-idea.desktop ~/.local/share/applications/; fi
@@ -63,7 +63,7 @@ if [ ! -d  "$LABKEYDIR/$SVNBRANCH/$TOMCAT" ]; then
 fi
 
 cd $LABKEYDIR/$SVNBRANCH
-echo "org.gradle.parallel=true" >> gradle.properties
+#echo "org.gradle.parallel=true" >> gradle.properties
 echo "deployMode=dev" >> gradle.properties
 
 
@@ -83,8 +83,8 @@ sudo su postgres -c "psql -c \"ALTER USER postgres PASSWORD 'sasa'\""
 
 # intellij
 
-mkdir -p /home/vagrant/.IntelliJIdea2017.2/config/options
-printf "<application>\n<component name=\"PathMacrosImpl\">\n<macro name=\"CATALINA_HOME\" value=\"$LABKEYDIR/$SVNBRANCH/$TOMCAT\" />\n</component>\n</application>" > /home/vagrant/.IntelliJIdea2017.2/config/options/path.macros.xml
+mkdir -p /home/vagrant/.IntelliJIdea2017.3/config/options
+printf "<application>\n<component name=\"PathMacrosImpl\">\n<macro name=\"CATALINA_HOME\" value=\"$LABKEYDIR/$SVNBRANCH/$TOMCAT\" />\n</component>\n</application>" > /home/vagrant/.IntelliJIdea2017.3/config/options/path.macros.xml
 cp /vagrant/jdk.table.xml ~/.IntelliJIdea2017.2/config/options
 
 
