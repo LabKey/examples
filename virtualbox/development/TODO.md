@@ -5,7 +5,7 @@ TODO
 * gsettings command in user_setup script doesn't work (would vbox.gui=true help?)
 * convert scripts to chef recipe
 * convert to using packer
-* fix semi-colons in paths in debug configurations
+* ~~fix semi-colons in paths in debug configurations~~
 * preconfigure intellij jdk
-* release 17.3 build (or just enlist in trunk and release 17.3?)
-* install tomcat 8.5
+* ~~release 17.3 build (or just enlist in trunk and release 17.3?)~~
+* ~~install tomcat 8.5~~

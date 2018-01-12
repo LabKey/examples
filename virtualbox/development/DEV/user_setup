@@ -36,10 +36,6 @@ sudo chown $USERGROUP $LABKEYDIR
 if [ ! -d "$LABKEYDIR/$SVNBRANCH" ]; then
   mkdir -p $LABKEYDIR/$SVNBRANCH
   cd $LABKEYDIR/$SVNBRANCH
-  echo 'PATH_add $(pwd)' >> .envrc
-  echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> .envrc
-  echo "export CATALINA_HOME=$(pwd)/$TOMCAT" >> .envrc
-  direnv allow .
 
   #git clone https://www.github.com/LabKey/enlist $LABKEYDIR/enlist
   #echo $LABKEYDIR/$SVNBRANCH/.mrconfig >> ~/.mrtrust
@@ -58,22 +54,28 @@ else
   svn update --username $SVNUSER --password $SVNPASSWORD
   #mr update
 fi
-cd $LABKEYDIR/$SVNBRANCH/server/installer/3rdparty
+
+cd /vagrant
 export TOMCAT_ZIP=$(ls apache-tomcat*.zip)
 export TOMCAT=$(basename $TOMCAT_ZIP .zip)
 cd $LABKEYDIR/$SVNBRANCH
 
-# TODO download tomcat 8.5 or update tomcat in server/installer/3rdparty
 if [ ! -d  "$LABKEYDIR/$SVNBRANCH/$TOMCAT" ]; then
-  unzip server/installer/3rdparty/$TOMCAT_ZIP
+  unzip /vagrant/$TOMCAT_ZIP
   echo "systemProp.tomcat.home=$LABKEYDIR/$SVNBRANCH/$TOMCAT" >> gradle.properties
 fi
 
 cd $LABKEYDIR/$SVNBRANCH
 echo "org.gradle.parallel=true" >> gradle.properties
-# this has side-effect of downloading dependencies (there's probably a more direct way)
+# this has side-effect of downloading some dependencies (there's probably a more direct way)
 ./gradlew tasks
 ./gradlew pickPg
+
+
+echo 'PATH_add $(pwd)' > .envrc
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> .envrc
+echo "export CATALINA_HOME=$(pwd)/$TOMCAT" >> .envrc
+direnv allow .
 
 echo ./gradlew :server:test:uiTest -Psuite=DRT >> drt
 echo ./gradlew :server:test:uiTest -Psuite=BVT >> bvt
@@ -92,10 +94,10 @@ cp /vagrant/jdk.table.xml ~/.IntelliJIdea2017.2/config/options
 
 
 # tests require firefox 45 (I know, this is bad)
-cd ~
-wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-x86_64/en-US/firefox-45.0.tar.bz2
-tar xjf firefox-45.0.tar.bz2
-mv firefox ~/Desktop/firefox45
+mkdir -p /home/vagrant/Desktop
+cd /home/vagrant/Desktop
+tar xjf /vagrant/firefox-45.0.tar.bz2
+mv firefox firefox45
 # set up test to use firefox45
 cp /vagrant/test.properties $LABKEYDIR/$SVNBRANCH/server/test
 
