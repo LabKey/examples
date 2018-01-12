@@ -7,23 +7,33 @@ You might want to right click on the icon in your launcher panel, and select 'Ad
 
 Now in your terminal change your password.
 
-**`$`**` passwd`
+> **`$`** `passwd`
+
+#### Documentation
+
+I tried to make this environment as good as I could.  However, you should still check out the LabKey developer documentation.
+
+> [`https://labkey.org/Documentation/wiki-page.view?name=dev`](https://labkey.org/Documentation/wiki-page.view?name=dev)
+
+I build this virutal box image using scripts that are available here.  Please feel free to make suggestions or pull requests to improve this.
+
+> [`https://github.com/LabKey/samples/tree/master/virtualbox/development`](https://github.com/LabKey/samples/tree/master/virtualbox/development)
 
 #### Try building from the command line
 
-**`$`**` cd ~/labkey/trunk`
+> **`$`** `cd ~/labkey/trunk`
 
 or
 
-**`$`**` cd ~/labkey/release17.3`
+> **`$`** `cd ~/labkey/release17.3`
 
 let's sync  the repository before we start (username `cpas`, password `cpas`)
 
-**`$`**` svn update --username cpas`
+> **`$`** `svn update --username cpas`
 
 and build
 
-**`$`**` ./gradlew deployApp`
+> **`$`** `./gradlew deployApp`
 
 Note that this has to download a lot of dependencies on the first run.
 
@@ -33,8 +43,6 @@ Click on "activity", then type "intellij".  IntelliJ IDEA Ultimate is pre-instal
 to acquire) a license, you might consider installing IntelliJ IDEA Community edition instead (that's the one under "Ubuntu Software").
 
 Accept all the licenses, and prompts.
-
-_BUG why does intellij try to open a file called 0.000000?_
 
 I'm assuming you have a trunk enlistment, if you have a release enlistment the directory name will be different.
 

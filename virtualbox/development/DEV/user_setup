@@ -124,7 +124,7 @@ dbus-launch gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.de
 echo "alias g='gradlew'" >> ~/.bash_aliases
 
 mkdir -p /home/vagrant/Desktop
-pandoc /vagrant/README.md > /home/vagrant/Desktop/README.html
+pandoc -s /vagrant/README.md -o /home/vagrant/Desktop/README.html
 
 
 #  pre-build 
