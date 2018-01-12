@@ -37,10 +37,6 @@ if [ ! -d "$LABKEYDIR/$SVNBRANCH" ]; then
   mkdir -p $LABKEYDIR/$SVNBRANCH
   cd $LABKEYDIR/$SVNBRANCH
 
-  #git clone https://www.github.com/LabKey/enlist $LABKEYDIR/enlist
-  #echo $LABKEYDIR/$SVNBRANCH/.mrconfig >> ~/.mrtrust
-  #/labkey/enlist/bin/enlistconfig $LABKEYDIR/enlist/$SVNBRANCH.config
-  #cp ../enlist/$SVNBRANCH.config .mrconfig
   if [ "$SVNBRANCH" = "trunk" ]; then
     svn checkout --username $SVNUSER --password $SVNPASSWORD https://hedgehog.fhcrc.org/tor/stedi/$SVNBRANCH $LABKEYDIR/$SVNBRANCH
   else
@@ -52,13 +48,14 @@ if [ ! -d "$LABKEYDIR/$SVNBRANCH" ]; then
 else
   cd $LABKEYDIR/$SVNBRANCH
   svn update --username $SVNUSER --password $SVNPASSWORD
-  #mr update
 fi
 
-cd /vagrant
+# tomcat 
+
+pushd /vagrant
 export TOMCAT_ZIP=$(ls apache-tomcat*.zip)
 export TOMCAT=$(basename $TOMCAT_ZIP .zip)
-cd $LABKEYDIR/$SVNBRANCH
+popd
 
 if [ ! -d  "$LABKEYDIR/$SVNBRANCH/$TOMCAT" ]; then
   unzip /vagrant/$TOMCAT_ZIP
@@ -67,9 +64,8 @@ fi
 
 cd $LABKEYDIR/$SVNBRANCH
 echo "org.gradle.parallel=true" >> gradle.properties
-# this has side-effect of downloading some dependencies (there's probably a more direct way)
-./gradlew tasks
-./gradlew pickPg
+echo "deployMode=dev" >> gradle.properties
+
 
 
 echo 'PATH_add $(pwd)' > .envrc
@@ -85,7 +81,6 @@ chmod +x drt bvt
 
 sudo su postgres -c "psql -c \"ALTER USER postgres PASSWORD 'sasa'\""
 
-
 # intellij
 
 mkdir -p /home/vagrant/.IntelliJIdea2017.2/config/options
@@ -94,12 +89,14 @@ cp /vagrant/jdk.table.xml ~/.IntelliJIdea2017.2/config/options
 
 
 # tests require firefox 45 (I know, this is bad)
+
 mkdir -p /home/vagrant/Desktop
-cd /home/vagrant/Desktop
+pushd /home/vagrant/Desktop
 tar xjf /vagrant/firefox-45.0.tar.bz2
 mv firefox firefox45
 # set up test to use firefox45
 cp /vagrant/test.properties $LABKEYDIR/$SVNBRANCH/server/test
+popd
 
 # user environment
 
@@ -128,5 +125,12 @@ echo "alias g='gradlew'" >> ~/.bash_aliases
 
 mkdir -p /home/vagrant/Desktop
 pandoc /vagrant/README.md > /home/vagrant/Desktop/README.html
+
+
+#  pre-build 
+
+cd $LABKEYDIR/$SVNBRANCH
+./gradlew dependencies copyExternalLibs
+./gradlew pickPg
 
 sync

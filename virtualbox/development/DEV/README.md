@@ -17,9 +17,9 @@ or
 
 **`$`**` cd ~/labkey/release17.3`
 
-let's sync  the repository before we start
+let's sync  the repository before we start (username `cpas`, password `cpas`)
 
-**`$`**` svn update
+**`$`**` svn update --username cpas`
 
 and build
 
