@@ -85,7 +85,7 @@ sudo su postgres -c "psql -c \"ALTER USER postgres PASSWORD 'sasa'\""
 
 mkdir -p /home/vagrant/.IntelliJIdea2017.3/config/options
 printf "<application>\n<component name=\"PathMacrosImpl\">\n<macro name=\"CATALINA_HOME\" value=\"$LABKEYDIR/$SVNBRANCH/$TOMCAT\" />\n</component>\n</application>" > /home/vagrant/.IntelliJIdea2017.3/config/options/path.macros.xml
-cp /vagrant/jdk.table.xml ~/.IntelliJIdea2017.2/config/options
+cp /vagrant/jdk.table.xml ~/.IntelliJIdea2017.3/config/options
 
 
 # tests require firefox 45 (I know, this is bad)
