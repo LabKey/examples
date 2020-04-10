@@ -4,7 +4,7 @@ services:
     postgres:
         build: ./postgres
         environment:
-            POSTGRES_PASSWORD: postgresisawesome
+            POSTGRES_PASSWORD: postgres_SUPER_USER_PASS_CHANGE_ME
         ports:
             - "5454:5432"
         volumes:

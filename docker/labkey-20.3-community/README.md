@@ -23,7 +23,8 @@ This folder contains a sample docker-compose file and sample Docker configuratio
     1. SMTP settings
 1. Edit the postgres/fixtures/create_fixtures.sql file
     1.  DB username and password should match those configued in labkey/config/labkey.xml 
-
+1. Edit the docker-compose.yml file
+    1. Change the postgres admin super user password
 
 ### Running LabKey Server 
 
