@@ -1,0 +1,27 @@
+<Context docBase="${labkey.home}/labkeywebapp" reloadable="true" crossContext="true">
+
+    <Resource name="jdbc/labkeyDataSource" auth="Container"
+        type="javax.sql.DataSource"
+        username="labkey"
+        password="CHANGE_ME_PLEASE"
+        driverClassName="org.postgresql.Driver"
+        url="jdbc:postgresql://${database.host}:${database.port}/labkey"
+        maxTotal="20"
+        maxIdle="10"
+        accessToUnderlyingConnectionAllowed="true"
+        validationQuery="SELECT 1"/>
+
+    <Resource name="mail/Session" auth="Container"
+        type="javax.mail.Session"
+        mail.smtp.host="localhost"
+        mail.smtp.user=""
+        mail.smtp.port="25"/>
+
+    <Parameter name="org.labkey.mothership.serverGUID" value="${labkey.server.hostname}"/>
+
+    <Loader loaderClass="org.labkey.bootstrap.LabKeyBootstrapClassLoader" />
+    
+    <!-- Encryption key for encrypted property store -->
+    <Parameter name="MasterEncryptionKey" value="CHANGE_ME_PLEASE" />
+
+</Context>
