@@ -4,8 +4,7 @@ samples/docker/labkey-20.3-community
 This folder contains a sample docker-compose file and sample Docker configurations to stand up an instance of LabKey Server Community edition for testing.
 
 ### IMPORTANT: Not Recommended for Production use
- This image was meant for trying out LabKey Server and not meant for running a production server or for storing important biomedical data. 
-
+ This image is meant for trying out LabKey Server and not meant for running LabKey as a production service.
 #### Technology configuration:
 * LabKey Server 20.3.2 
 * Tomcat 9
@@ -32,7 +31,7 @@ To build and run the LabKey service
 
     sudo docker-compose up -d --build
 
-After few seconds, open [http://localhost:8080/labkey](http://<host>:8080) to see the LabKey Server initialization page.
+After few seconds, open [http://localhost:8080/labkey](http://localhost:8080/labkey) to see the LabKey Server initialization page.
 
 To stop the LabKey service    
 
