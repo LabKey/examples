@@ -1,4 +1,4 @@
-samples/docker/labkey-20.3-community
+samples/docker/labkey-20.7-community
 ==========
 
 This folder contains a sample docker-compose file and sample Docker configurations to stand up an instance of LabKey Server Community edition for testing.
@@ -6,9 +6,9 @@ This folder contains a sample docker-compose file and sample Docker configuratio
 ### IMPORTANT: Not Recommended for Production use
  This image is meant for trying out LabKey Server and not meant for running LabKey as a production service.
 #### Technology configuration:
-* LabKey Server 20.3.2 
+* LabKey Server 20.7.6 
 * Tomcat 9
-* OpenJDK-14
+* OpenJDK-15
 * PostgreSQL 11
 
 
