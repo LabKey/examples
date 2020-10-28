@@ -26,6 +26,10 @@ The [LabKey Server Python API](https://www.labkey.org/wiki/home/Documentation/pa
 ### Installation and Upgrade
 _Located in the [/ops](/LabKey/samples/tree/master/ops) folder_
 
+* **install_labkey_amzn2.sh**:  Sample Amazon Linux Install script - Use this script to aid in installing LabKey on Amazon Linux 2.  
+    * This script is not officially supported by LabKey.
+* **install_labkey_centos7.sh**:  Sample CentOS 7 Linux Install script - Use this script to aid in installing LabKey on CentOS 7 Linux.
+    * This script is not officially supported by LabKey.
 * **install-windows-manual.bat**: Use script to install the LabKey Server binaries on Windows. This should only be used if you are performing at [manual installation](https://www.labkey.org/wiki/home/Documentation/page.view?name=manualInstall).
     *  This should only be used if you are performing at [manual installation](https://www.labkey.org/wiki/home/Documentation/page.view?name=manualInstall) on a Windows server.
     * This script is not officially supported by LabKey.
