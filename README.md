@@ -8,7 +8,7 @@ The scripts and tools that you find here are either in development or have not y
 ## Available Scripts and Tools 
 
 ### Python Scripts 
-_Located in the [/python](/LabKey/samples/tree/master/python) folder_
+_Located in the [/python](./python) folder_
 
 The [LabKey Server Python API](https://www.labkey.org/wiki/home/Documentation/page.view?name=python) provides ways for you to access the data in your LabKey Server programmatically with Python. The LabKey Server Python API does not cover all the functionality of the LabKey Server. These scripts will provide examples for working the LabKey Server Python API and sample scripts for interacting with your LabKey Server in ways not currently covered by the API.
 
@@ -24,7 +24,7 @@ The [LabKey Server Python API](https://www.labkey.org/wiki/home/Documentation/pa
 
 
 ### Installation and Upgrade
-_Located in the [/ops](/LabKey/samples/tree/master/ops) folder_
+_Located in the [/ops](./ops) folder_
 
 * **install_labkey_amzn2.sh**:  Sample Amazon Linux Install script - Use this script to aid in installing LabKey on Amazon Linux 2.  
     * This script is not officially supported by LabKey.
@@ -51,10 +51,10 @@ _Located in the [/ops](/LabKey/samples/tree/master/ops) folder_
 
 
 ### Docker
-_Located in the [/docker](/LabKey/samples/tree/master/docker) folder_
+_Located in the [/docker](./docker) folder_
 
 * **labkey-standalone**: Dockerfile and other source files needed for building a Docker image that runs LabKey Server. 
-    * See the [README](/LabKey/samples/tree/master/docker/labkey-standalone/README.md) file for information on building your own image or 
+    * See the [README](./docker/labkey-standalone/README.md) file for information on building your own image or 
     * See [bconn/labkey-standalone](https://registry.hub.docker.com/u/bconn/labkey-standalone/) on DockerHub.
     * This script is not officially supported by LabKey.
 
@@ -63,6 +63,3 @@ _Located in the [/docker](/LabKey/samples/tree/master/docker) folder_
 ## Support 
 
 If you need support using these scripts/tools or for the LabKey Server in general, please post message to [LabKey Server Community Forum](https://www.labkey.org/project/home/Server/Forum/begin.view?). Or send me a message on [twitter](https://twitter.com/bdconnolly)([@bdconnolly](https://twitter.com/bdconnolly)).
-
-
-
