@@ -1,4 +1,4 @@
-samples/docker/labkey-20.7-community
+examples/docker/labkey-20.7-community
 ==========
 
 This folder contains a sample docker-compose file and sample Docker configurations to stand up an instance of LabKey Server Community edition for testing.

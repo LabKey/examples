@@ -1,4 +1,4 @@
-samples
+examples
 ==========
 
 This repository contains scripts and tools which can be used to manage and/or work with data stored in a [LabKey Server](https://www.labkey.org/). 
@@ -58,7 +58,11 @@ _Located in the [/docker](./docker) folder_
     * See [bconn/labkey-standalone](https://registry.hub.docker.com/u/bconn/labkey-standalone/) on DockerHub.
     * This script is not officially supported by LabKey.
 
+### Ontology
+_Located in the [/ontology](./ontology) folder_
 
+A set of python scripts which can help generate an ontology archive that can then be loaded into LabKey.
+The scripts are designed to accept OWL NCI, and GO files, but support is not universal for all files of these types.
 
 ## Support 
 

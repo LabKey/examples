@@ -1,4 +1,4 @@
-samples/docker/labkey-standalone
+examples/docker/labkey-standalone
 ==========
 
 With the recent release of [kubernetes](https://github.com/GoogleCloudPlatform/kubernetes) from Google and news of [Docker support in Elastic Beanstalk](http://aws.amazon.com/about-aws/whats-new/2014/04/23/aws-elastic-beanstalk-adds-docker-support/), I figured it was finally time to give containers (and Docker ) a try. 
