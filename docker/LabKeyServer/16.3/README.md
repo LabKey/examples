@@ -1,4 +1,4 @@
-# samples/docker/LabKeyServer/16.3
+# examples/docker/LabKeyServer/16.3
 
 This folder contains a Dockerfile, scripts and instructions for building a Docker image can be used to try out LabKey Server. Using this Dockerfile will result in a single container which runs the services required(PostgreSQL and Tomcat) to run a LabKey Server application.
 
