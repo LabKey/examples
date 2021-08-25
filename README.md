@@ -66,4 +66,4 @@ The scripts are designed to accept OWL NCI, and GO files, but support is not uni
 
 ## Support 
 
-If you need support using these scripts/tools or for the LabKey Server in general, please post message to [LabKey Server Community Forum](https://www.labkey.org/project/home/Server/Forum/begin.view?). Or send me a message on [twitter](https://twitter.com/bdconnolly)([@bdconnolly](https://twitter.com/bdconnolly)).
+If you need support using these scripts/tools or for the LabKey Server in general, please contact your Account Manager or post a message to the LabKey Server Community Forum.
