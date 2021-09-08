@@ -23,6 +23,11 @@ This is a simple script that understands basic OWL xml files.  However, it does 
 [NCI](http://bioportal.bioontology.org/ontologies/NCIT) and [GO](https://bioportal.bioontology.org/ontologies/GO) ontologies (see command-line options by running owl.py with no arguments).
 
 **[i2b2.py](./i2b2.py)**
+
 This script will convert files that are formatted for importing into i2b2.  NOTE: Many of these files handle escaping special characters
 very poorly.
 
+**[validate.py](./validate.py)**
+
+This runs consistency checks over a LabKey ontology archive (.zip).  It is good practice to run this tool before uploading
+an archive in order to flag problems that may cause unexpected behaviors.
