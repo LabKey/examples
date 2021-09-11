@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import logging
 import os
 
 import argparse
@@ -8,6 +7,7 @@ import zipfile
 
 import rdflib
 
+MAXCODE = 40
 verbose = False
 warnings = {}
 
@@ -106,6 +106,8 @@ def export_labkey(concepts, tempdir, archive):
 
 def main():
     global verbose
+    global MAXCODE
+
     parser = argparse.ArgumentParser(description='Process an RDF file using rdflib and generate a LabKey ontology archive.')
     parser.add_argument('input', help='input .owl file')
     parser.add_argument('output', help='output .zip file')
@@ -138,44 +140,59 @@ def main():
     g = rdflib.Graph()
     g.parse(args.input, format='application/rdf+xml')
 
-    concepts = {}
+    subjects = {}   # concepts keyed by full subject string
+    concepts = {}   # concepts keyed by code
 
-    for s, p, o in g:
-        if -1 == s.find("#"):
-            continue
-        lang = args.language
-        if isinstance(o, rdflib.term.BNode):
-            continue
-        elif isinstance(o, rdflib.term.Literal):
-            if o.language and o.language != args.language:
+    # initial pass:  just looking for owl#Class entries
+
+    for S, P, O in g:
+        s = str(S)
+        p = str(P)
+        o = str(O)
+
+        if p.endswith("#type") and o.endswith("#Class"):
+            full_code = s[s.find("#") + 1:]
+            code = full_code[0:MAXCODE]
+            if not code:
                 continue
-        s = str(s)
-        p = str(p)
-        o = str(o)
-        # print(s, p, o)
-        full_code = s[s.find("#") + 1:]
-        MAXCODE=40
-        code = full_code[0:MAXCODE]
-        if not code:
-            continue
-        if code not in concepts:
             c = Concept()
             if len(full_code) > MAXCODE:
                 print("warning: code truncated to " + str(MAXCODE) + " chars '" + full_code + "'")
             c.code = code[0:MAXCODE]
             c.path_part = valid_path_part(code) + "/"
             c.synonyms[c.code.lower()] = True
-            concepts[code] = c
-        c = concepts[code]
+            subjects[s] = c
+            concepts[c.code] = c
+
+    # second pass: fill in the Concept objects
+
+    for S, P, O in g:
+        if isinstance(O, rdflib.term.BNode):
+            continue
+        elif isinstance(O, rdflib.term.Literal):
+            if O.language and O.language != args.language:
+                continue
+        s = str(S)
+        p = str(P)
+        o = str(O)
+        if s not in subjects:
+            continue
+        c = subjects[s]
 
         if p.endswith("#prefLabel"):
             c.name = o
             c.synonyms[c.name.lower()] = True
-        elif p.endswith("#altLabel"):
+        elif p.endswith("/Hugo.owl#Approved_Symbol"):
+            if not c.name:
+                c.name = o
+                c.synonyms[c.name.lower()] = True
+        elif p.endswith("#altLabel") or p.endswith("/Hugo.owl#Aliases"):
             c.synonyms[o.lower()] = True
         elif p.endswith("#subClassOf") and o:
             parent_code = o[o.find('#')+1:]
             c.parent_codes.append(parent_code[0:MAXCODE])
+        elif p.endswith("/Hugo.owl#Approved_Name"):
+            c.description = o
 
     export_labkey(concepts, tempdir, args.output)
 
