@@ -104,6 +104,14 @@ def export_labkey(concepts, tempdir, archive):
         myzip.write(os.path.join(tempdir, 'synonyms.txt'), 'synonyms.txt')
 
 
+def extract_code(s):
+    i = s.find("#")
+    if i==-1:
+        i=s.rfind("/")
+    full_code = s[i + 1:]
+    return full_code
+
+
 def main():
     global verbose
     global MAXCODE
@@ -151,15 +159,14 @@ def main():
         o = str(O)
 
         if p.endswith("#type") and o.endswith("#Class"):
-            full_code = s[s.find("#") + 1:]
-            code = full_code[0:MAXCODE]
-            if not code:
+            full_code = extract_code(s)
+            if not full_code:
                 continue
             c = Concept()
             if len(full_code) > MAXCODE:
                 print("warning: code truncated to " + str(MAXCODE) + " chars '" + full_code + "'")
-            c.code = code[0:MAXCODE]
-            c.path_part = valid_path_part(code) + "/"
+            c.code = full_code[0:MAXCODE]
+            c.path_part = valid_path_part(c.code) + "/"
             c.synonyms[c.code.lower()] = True
             subjects[s] = c
             concepts[c.code] = c
