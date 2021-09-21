@@ -7,7 +7,7 @@ import zipfile
 
 import rdflib
 
-MAXCODE = 40
+MAXCODE = 44
 verbose = False
 warnings = {}
 
