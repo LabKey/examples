@@ -8,10 +8,11 @@ The scripts and tools that you find here are either in development or have not y
 
 ## Installation and Upgrade 
 
-* **install_labkey_amzn2.sh**:  Sample Amazon Linux Install script - Use this script to aid in installing LabKey on Amazon Linux 2.  
-    * This script is not officially supported by LabKey.
-* **install_labkey_centos7.sh**:  Sample CentOS 7 Linux Install script - Use this script to aid in installing LabKey on CentOS 7 Linux.
-    * This script is not officially supported by LabKey.
+* **Updated Linux installation scripts** are available in this repo [Install-Script](https://github.com/FDA-MyStudies/install-script) - we no longer recommend using the install scripts below as they are no longer being maintained.  
+   * ~~install_labkey_amzn2.sh:  Sample Amazon Linux Install script - Use this script to aid in installing LabKey on Amazon Linux 2.~~  
+      
+   * ~~install_labkey_centos7.sh:  Sample CentOS 7 Linux Install script - Use this script to aid in installing LabKey on CentOS 7 Linux.~~
+
 * **install-windows-manual.bat**: Use script to install the LabKey Server binaries on Windows. This should only be used if you are performing at [manual installation](https://www.labkey.org/wiki/home/Documentation/page.view?name=manualInstall).
     *  This should only be used if you are performing at [manual installation](https://www.labkey.org/wiki/home/Documentation/page.view?name=manualInstall) on a Windows server.
     * This script is not officially supported by LabKey.
