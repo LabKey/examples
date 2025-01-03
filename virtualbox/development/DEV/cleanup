@@ -1,9 +1,0 @@
-#!/bin/bash
-rm -r /home/vagrant/.git-credentials
-rm -r /home/vagrant/.subversion/auth
-apt-get autoremove
-apt-get clean
-dd bs=32K if=/dev/zero of=/tmp/zero
-rm /tmp/zero
-cat /dev/null > /root/.bash_history && history -c
-cat /dev/null > /home/vagrant/.bash_history && sudo su vagrant -c "history -c"
