@@ -1,4 +1,0 @@
-vagrant destroy
-vagrant up
-vagrant package --output development-base.box
-vagrant box add --force labkey/development-base development-base.box

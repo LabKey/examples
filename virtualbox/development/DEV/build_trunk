@@ -1,6 +1,0 @@
-cp setenv.trunk setenv
-
-vagrant destroy
-vagrant up
-vagrant package --output development.box
-vagrant box add --force labkey/development/trunk development.box

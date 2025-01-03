@@ -1,6 +1,0 @@
-#!/bin/bash
-apt-get autoremove
-apt-get clean
-dd bs=32K if=/dev/zero of=/tmp/zero
-rm /tmp/zero
-cat /dev/null > ~/.bash_history && history -c

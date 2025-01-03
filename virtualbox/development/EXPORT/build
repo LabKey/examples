@@ -1,9 +1,0 @@
-#!/bin/bash
-
-vagrant destroy 
-vagrant up
-vagrant package --output labkey-virtualbox.box
-mkdir -p ../output
-pushd ../output
-tar xf ../EXPORT/labkey-virtualbox.box
-popd
