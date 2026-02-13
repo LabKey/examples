@@ -263,6 +263,53 @@ ORDER BY DisplayName
 </query>
 ```
 
+## XML Schema Reference
+
+LabKey modules use various XML configuration files with specific schemas. When creating these files, always consult the official schema documentation for complete element and attribute references.
+
+**Official Schema Documentation**: https://www.labkey.org/download/schema-docs/xml-schemas/
+
+### Common XML File Types
+
+| File Type | Purpose | Root Element | Namespace | Location |
+|-----------|---------|--------------|-----------|----------|
+| `.query.xml` | Query metadata (columns, validators, FKs) | `<query>` | `http://labkey.org/data/xml/query` | `resources/queries/[schema]/[query].query.xml` |
+| `.qview.xml` | Custom query views (filters, sorts) | `<cv:customView>` | `http://labkey.org/data/xml/queryCustomView` | `resources/queries/[schema]/[query]/[view].qview.xml` |
+| `.webpart.xml` | Web part configuration | `<webpart>` | `http://labkey.org/data/xml/webpart` | `resources/views/[view].webpart.xml` |
+| `.view.xml` | View with dependencies | `<view>` | `http://labkey.org/data/xml/view` | `resources/views/[view].view.xml` |
+| `.report.xml` | Report definitions (R, JS, etc.) | `<ReportDescriptor>` | `http://labkey.org/query/xml` | `resources/reports/schemas/[schema]/[query]/[report].report.xml` |
+| `.folderType.xml` | Custom folder types | `<ft:folderType>` | `http://labkey.org/data/xml/folderType` | `resources/folderTypes/[name].folderType.xml` |
+| `.task.xml` | Pipeline task definitions | `<task>` | `http://labkey.org/pipeline/xml` | `resources/pipeline/tasks/[task].task.xml` |
+| `.pipeline.xml` | Pipeline definitions | `<pipeline>` | `http://labkey.org/pipeline/xml` | `resources/pipeline/pipelines/[pipeline].pipeline.xml` |
+| `.template.xml` | Domain templates (Lists, DataClasses, SampleSets) | `<templates>` | `http://labkey.org/data/xml/domainTemplate` | `resources/domain-templates/[template].template.xml` |
+
+### Finding Examples
+
+Real-world examples of these XML files can be found in the LabKey testAutomation modules: https://github.com/LabKey/testAutomation/tree/develop/modules
+
+Browse specific modules for examples:
+- **simpletest**: Basic queries, views, web parts, folder types
+- **scriptpad**: Reports and R scripts
+- **pipelinetest2**: Pipeline tasks and definitions
+- **editableModule**: Editable grid queries
+- **linkedschematest**: Schema templates and linked queries
+
+### Key Points
+
+- **Query metadata** (`.query.xml`) often uses two namespaces: the primary `query` namespace for the root element and the `data/xml` namespace for the `<tables>` element
+- **Report descriptors** (`.report.xml`) use two namespaces: `http://labkey.org/query/xml` for the main descriptor and `http://labkey.org/data/xml/reportProps` (prefix `rep:`) for properties
+- **Domain templates** (`.template.xml`) use `xsi:type` to specify template types: `ListTemplateType`, `DataClassTemplateType`, `SampleSetTemplateType`
+- **Pipeline tasks** (`.task.xml`) use `xsi:type` to specify task types: `ScriptTaskType`, `JavaTaskType`, `CommandTaskType`
+- **View files** (`.view.xml`) are used when you need to declare JavaScript/CSS dependencies; simple web parts only need `.webpart.xml`
+
+### Typical Workflow
+
+1. Create the primary resource file (`.sql`, `.html`, `.r`, etc.)
+2. Add the corresponding XML configuration file if needed
+3. Reference the online schema documentation for available elements and attributes
+4. Look at examples in the testAutomation modules on GitHub for real patterns
+5. Test your changes (most XML updates don't require server restart)
+
 ## Deployment and Testing
 
 ### Location
