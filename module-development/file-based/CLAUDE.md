@@ -19,7 +19,8 @@ A file-based module is a LabKey module that doesn't contain any Java code. It en
 ### Development/Source Layout
 ```
 myModule/
-├── module.properties          # Module configuration (REQUIRED)
+├── config
+│    └── module.properties     # Module configuration (REQUIRED)
 ├── README.md                  # Module documentation
 └── resources/                 # All module resources go here
     ├── queries/               # SQL queries and query metadata
@@ -52,15 +53,9 @@ myModule/
     └── pipeline/              # Pipeline task definitions
 ```
 
-### Deployed Layout
-When deployed, the structure changes slightly:
-- `resources/` directory contents move to root level
-- `module.properties` becomes `config/module.xml`
-- Compiled code (if any) goes to `lib/`
+## config/module.properties File
 
-## module.properties File
-
-This is the **required** configuration file for your module. Place it in the module root.
+This is the **required** configuration file for your module.
 
 ### Required Properties
 ```properties
